@@ -1842,6 +1842,7 @@ fun! s:NetrwMaps(islocal)
 
   if a:islocal
 "   call Decho("make local maps")
+
    inoremap <buffer> <silent> a		<c-o>:call <SID>NetrwHide(1)<cr>
    inoremap <buffer> <silent> c		<c-o>:exe "keepjumps lcd ".fnameescape(b:netrw_curdir)<cr>
    inoremap <buffer> <silent> C		<c-o>:let g:netrw_chgwin= winnr()<cr>
@@ -2960,6 +2961,11 @@ fun! s:NetrwGetWord()
 
   " executables are indicated by a trailing "*".  Remove it before further processing.
   let dirname= substitute(dirname,"\*$","","")
+
+  " remove icons from start of word
+  if exists('*WebDevIconsGetFileTypeSymbol')  " support for vim-devicons
+    let dirname= substitute(dirname, "^. ", "", "")
+  endif
 
 "  call Dret("s:NetrwGetWord <".dirname.">")
   return dirname
@@ -7297,6 +7303,17 @@ fun! netrw#LocalBrowseCheck(dirname)
    endif
   endif
   " not a directory, ignore it
+
+  " Move cursor right for 2 symbol to skip icon
+  exe "normal" "w"
+endfun
+
+fun! s:AddIcon(pfile)
+  if exists('*WebDevIconsGetFileTypeSymbol')  " support for vim-devicons
+    return WebDevIconsGetFileTypeSymbol(a:pfile).' '.a:pfile
+  endif
+
+  return a:pfile
 endfun
 
 " ---------------------------------------------------------------------
@@ -7424,6 +7441,7 @@ fun! s:LocalListing()
    endif
    let pfile= strpart(pfile,dirnamelen)
    let pfile= substitute(pfile,'^[/\\]','','e')
+   let pfile= s:AddIcon(pfile)
 "   call Decho("filename<".filename.">")
 "   call Decho("pfile   <".pfile.">")
 
