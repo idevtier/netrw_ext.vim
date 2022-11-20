@@ -1842,6 +1842,7 @@ fun! s:NetrwMaps(islocal)
 
   if a:islocal
 "   call Decho("make local maps")
+
    inoremap <buffer> <silent> a		<c-o>:call <SID>NetrwHide(1)<cr>
    inoremap <buffer> <silent> c		<c-o>:exe "keepjumps lcd ".fnameescape(b:netrw_curdir)<cr>
    inoremap <buffer> <silent> C		<c-o>:let g:netrw_chgwin= winnr()<cr>
@@ -7304,7 +7305,7 @@ fun! netrw#LocalBrowseCheck(dirname)
   " not a directory, ignore it
 
   " Move cursor right for 2 symbol to skip icon
-  exe "normal" "2l"
+  exe "normal" "w"
 endfun
 
 fun! s:AddIcon(pfile)
