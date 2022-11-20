@@ -2961,7 +2961,10 @@ fun! s:NetrwGetWord()
   " executables are indicated by a trailing "*".  Remove it before further processing.
   let dirname= substitute(dirname,"\*$","","")
 
-  let dirname= substitute(dirname, "^[^\p{L}\.\d\_] ", "", "")
+  " remove icons from start of word
+  if exists('*WebDevIconsGetFileTypeSymbol')  " support for vim-devicons
+    let dirname= substitute(dirname, "^. ", "", "")
+  endif
 
 
 "  call Dret("s:NetrwGetWord <".dirname.">")
