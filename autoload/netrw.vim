@@ -2966,7 +2966,6 @@ fun! s:NetrwGetWord()
     let dirname= substitute(dirname, "^. ", "", "")
   endif
 
-
 "  call Dret("s:NetrwGetWord <".dirname.">")
   return dirname
 endfun
@@ -7306,11 +7305,11 @@ fun! netrw#LocalBrowseCheck(dirname)
 endfun
 
 fun! s:AddIcon(pfile)
-    if exists('*WebDevIconsGetFileTypeSymbol')  " support for vim-devicons
-        return WebDevIconsGetFileTypeSymbol(a:pfile).' '.a:pfile
-    endif
+  if exists('*WebDevIconsGetFileTypeSymbol')  " support for vim-devicons
+    return WebDevIconsGetFileTypeSymbol(a:pfile).' '.a:pfile
+  endif
 
-    return a:pfile
+  return a:pfile
 endfun
 
 " ---------------------------------------------------------------------
