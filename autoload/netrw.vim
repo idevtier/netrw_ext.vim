@@ -2961,6 +2961,9 @@ fun! s:NetrwGetWord()
   " executables are indicated by a trailing "*".  Remove it before further processing.
   let dirname= substitute(dirname,"\*$","","")
 
+  let dirname= substitute(dirname, "^[^\p{L}\.\d\_] ", "", "")
+
+
 "  call Dret("s:NetrwGetWord <".dirname.">")
   return dirname
 endfun
