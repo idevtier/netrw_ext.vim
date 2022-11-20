@@ -7302,6 +7302,9 @@ fun! netrw#LocalBrowseCheck(dirname)
    endif
   endif
   " not a directory, ignore it
+
+  " Move cursor right for 2 symbol to skip icon
+  exe "normal" "2l"
 endfun
 
 fun! s:AddIcon(pfile)
