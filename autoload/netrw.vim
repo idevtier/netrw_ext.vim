@@ -7299,6 +7299,14 @@ fun! netrw#LocalBrowseCheck(dirname)
   " not a directory, ignore it
 endfun
 
+fun! s:AddIcon(pfile)
+    if exists('*WebDevIconsGetFileTypeSymbol')  " support for vim-devicons
+        return WebDevIconsGetFileTypeSymbol(a:pfile).' '.a:pfile
+    endif
+
+    return a:pfile
+endfun
+
 " ---------------------------------------------------------------------
 "  s:LocalListing: does the job of "ls" for local directories {{{2
 fun! s:LocalListing()
@@ -7424,6 +7432,7 @@ fun! s:LocalListing()
    endif
    let pfile= strpart(pfile,dirnamelen)
    let pfile= substitute(pfile,'^[/\\]','','e')
+   let pfile= s:AddIcon(pfile)
 "   call Decho("filename<".filename.">")
 "   call Decho("pfile   <".pfile.">")
 
